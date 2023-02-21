@@ -63,7 +63,7 @@ let url;
           localStorage.setItem("token", data.idToken);
           localStorage.setItem("email", data.email);
           console.log('user has successfully registered!!')
-        history.replace('/home')
+        history.replace('/welcome')
       })
       .catch((err)=>{
         alert(err.message)
