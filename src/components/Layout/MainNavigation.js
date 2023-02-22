@@ -15,6 +15,9 @@ const MainNavigation = () => {
 
   const logoutHandler=()=>{
     dispatch(authActions.logout(null))
+    localStorage.removeItem("token");
+      localStorage.removeItem("email");
+      localStorage.removeItem("data");
       history.replace('/login')
       }
 
@@ -69,9 +72,9 @@ const MainNavigation = () => {
             !isLoggedIn && (<li>
                 <Link to='/login'>Login</Link>
               </li>)}
-              {isLoggedIn &&(<li>
+              {/* {isLoggedIn &&(<li>
             <Link to='/profile'>Profile</Link>
-          </li>)}
+          </li>)} */}
           {isLoggedIn && (<li>
             <button onClick={logoutHandler}>Logout</button>
           </li>)}

@@ -1,0 +1,100 @@
+.header {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
+    grid-gap: 1rem;
+    background-color: #04cb99;
+    color: #fff;
+    padding-top: 0%;
+    padding-left: 3%;
+    padding-bottom: 1%;
+  
+    align-items: center;
+  }
+  
+  .header-title {
+    grid-column: 1;
+    margin: 0;
+    font-size: 36px;
+  }
+  
+  .header-span {
+    color: rgb(254, 254, 255);
+  }
+  
+  .header-link {
+    grid-column: 2;
+    color: #fff;
+    text-decoration: none;
+    margin-left: 200px;
+  }
+  
+  .header-span:hover {
+    color: #ccc;
+  }
+  
+  .actions {
+    margin-top: 7%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: wheat;
+  }
+
+  .actions2 {
+    margin-top: 7%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .actions button {
+    cursor: pointer;
+    font: inherit;
+    color: white;
+    background-color: #09c14a;
+    border: 1px solid #019343;
+    border-radius: 20px;
+    padding: 0.5rem 2rem;
+  }
+  
+  .actions button:hover {
+    background-color: #068d4c;
+    border-color: #017539;
+  }
+
+  .actions2 button {
+    cursor: pointer;
+    font: inherit;
+    color: white;
+    background-color: #ed2a1c;
+    border: 1px solid #b61402;
+    border-radius: 20px;
+    padding: 0.5rem 2rem;
+  }
+  
+  .actions2 button:hover {
+    background-color: #a22f06;
+    border-color: #921f02;
+  }
+  
+  .actions .toggle {
+    margin-top: 1rem;
+    background-color: transparent;
+    color: #9f5ccc;
+    border: none;
+    padding: 0.15rem 1.5rem;
+  }
+  
+  .actions .toggle:hover {
+    background-color: transparent;
+    color: #ae82cc;
+  }
+  
+  .header-class {
+    font-size: 32px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    color: rgb(180, 180, 224);
+    background-color: rgb(52, 44, 50);
+  }
