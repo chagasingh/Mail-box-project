@@ -1,4 +1,3 @@
-import { Fragment } from "react";
 import { useRef } from "react";
 import { Button, Modal, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,26 +7,36 @@ import { uiActions } from "../../store/ui-slice";
 const ComposeMail = (props) => {
   const show = useSelector(state => state.ui.show)
   const email = useSelector(state => state.auth.email)
-  
+  const senderMail = email.replace('@', '').replace('.', '')
   const dispatch = useDispatch()
-
   const emailRef = useRef();
   const subjectRef = useRef();
   const mailBodyRef = useRef();
 
+
   const composeMailHandler = async(event) => {
     event.preventDefault();
-    const emailData = emailRef.current.value.replace('@', '').replace('.', '')
-    const mailData = {
+    const receiverMail = emailRef.current.value.replace('@', '').replace('.', '')
+    const recevierMailData = {
       sender: email,
       subject: subjectRef.current.value,
       body: mailBodyRef.current.value,
     };
+    const senderMailData = {
+      sentTo: emailRef.current.value,
+      subject: subjectRef.current.value,
+      body: mailBodyRef.current.value,
+    }
     try {
-      const response = await fetch(`https://react-movie-c353a-default-rtdb.firebaseio.com/${emailData}.json`,{
+      await fetch(`https://react-movie-c353a-default-rtdb.firebaseio.com/rec${receiverMail}.json`,{
         method: 'POST',
-        body: JSON.stringify(mailData)
+        body: JSON.stringify(recevierMailData)
       })
+      await fetch(`https://react-movie-c353a-default-rtdb.firebaseio.com/sent${senderMail}.json`,{
+        method: 'POST',
+        body: JSON.stringify(senderMailData)
+      })
+      
       dispatch(uiActions.handleShow())
     }catch(error) {
       alert(error)
@@ -35,7 +44,6 @@ const ComposeMail = (props) => {
   };
 
   return (
-    <Fragment>
     <Modal show={show} onHide={() => dispatch(uiActions.handleShow())}>
       <Modal.Header closeButton>
         <Modal.Title>New Message</Modal.Title>
@@ -68,7 +76,6 @@ const ComposeMail = (props) => {
         </Form>
       </Modal.Body>
     </Modal>
-    </Fragment>
   );
 };
 

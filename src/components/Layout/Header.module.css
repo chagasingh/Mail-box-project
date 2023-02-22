@@ -1,14 +1,14 @@
 .header {
     display: grid;
-    grid-template-columns: 3fr 1fr 1fr 1fr 1fr;
-    grid-gap: 1rem;
+    grid-template-columns: 3fr 1fr 1fr 1fr 1fr 1fr;
+    grid-gap: 0rem;
     background-color: #04cb99;
     color: #fff;
     padding-top: 0%;
-    padding-left: 3%;
+    padding-left: 2%;
     padding-bottom: 1%;
   
-    align-items: center;
+    align-items:start;
   }
   
   .header-title {
@@ -23,9 +23,9 @@
   
   .header-link {
     grid-column: 2;
-    color: #fff;
+    color: #fff2f2;
     text-decoration: none;
-    margin-left: 200px;
+    margin-left: 2px;
   }
   
   .header-span:hover {
