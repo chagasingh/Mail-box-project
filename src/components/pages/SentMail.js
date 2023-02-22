@@ -11,14 +11,14 @@ const SentMail = () => {
   const dispatch = useDispatch();
   const sentMail = useSelector((state) => state.mail.sentMail);
   const senderMail = useSelector((state) => state.auth.email);
-  const mail = senderMail.replace("@", "").replace(".", "");
+  const email = senderMail.replace("@", "").replace(".", "");
   const viewMailHandler = () => {
     dispatch(mailActions.mailHandler());
   };
 
   const fetchSentMail = async () => {
     const response = await fetch(
-      `https://react-movie-c353a-default-rtdb.firebaseio.com/sent${mail}.json`
+      `https://react-movie-c353a-default-rtdb.firebaseio.com/sent${email}.json`
     );
     if (!response.ok) {
       throw new Error("Could not fetch sent mail");
@@ -60,7 +60,7 @@ const SentMail = () => {
                   View
                 </Button>
               </td>
-              <ViewMail message={mail.body} />
+              <ViewMail mail={mail} email={email}  type={'sent'}/>
             </tr>
           ))}
         </tbody>
