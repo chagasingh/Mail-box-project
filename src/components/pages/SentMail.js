@@ -1,14 +1,20 @@
-import { useEffect,Fragment } from "react";
+
+import { Fragment } from "react";
+import { useEffect } from "react";
 import { Table, Button, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { mailActions } from "../../store/mail-slice";
 import Header from "../Layout/Header";
+import ViewMail from "./ViewMail";
 
 const SentMail = () => {
   const dispatch = useDispatch();
   const sentMail = useSelector((state) => state.mail.sentMail);
   const senderMail = useSelector((state) => state.auth.email);
   const mail = senderMail.replace("@", "").replace(".", "");
+  const viewMailHandler = () => {
+    dispatch(mailActions.mailHandler());
+  };
 
   const fetchSentMail = async () => {
     const response = await fetch(
@@ -34,13 +40,13 @@ const SentMail = () => {
     <Fragment>
         <Header/>
     <Card>
-      <Card.Header><h1>Sent Mail</h1></Card.Header>  
+      <Card.Header><h1>Sent Mail</h1></Card.Header>
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th><h4>Subject</h4></th>
-            <th><h4>Content</h4></th>
-            <th><h4>Sent To</h4></th>
+            <th>Subject</th>
+            <th>Content</th>
+            <th>Sent To</th>
           </tr>
         </thead>
         <tbody>
@@ -50,8 +56,11 @@ const SentMail = () => {
               <td>{mail.body}</td>
               <td>{mail.sentTo}</td>
               <td>
-                <Button variant="danger">Delete</Button>
+                <Button variant="success" onClick={viewMailHandler}>
+                  View
+                </Button>
               </td>
+              <ViewMail message={mail.body} />
             </tr>
           ))}
         </tbody>

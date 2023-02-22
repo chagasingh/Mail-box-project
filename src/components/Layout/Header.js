@@ -1,4 +1,4 @@
-import { Link} from "react-router-dom";
+import { Link,useHistory} from "react-router-dom";
 import classes from "./Header.module.css";
 import { authActions } from "../../store/auth-slice";
 import { useDispatch,useSelector } from "react-redux";
@@ -7,12 +7,15 @@ import { uiActions } from "../../store/ui-slice";
 import { mailActions } from "../../store/mail-slice";
 
 const Header = () => {
+  const history=useHistory();
   const dispatch = useDispatch();
   const mail = useSelector((state) => state.auth.email);
   const logoutHandler = () => {
     dispatch(authActions.logout())
     dispatch(mailActions.updateReceivedMail({mail: []}))
     dispatch(mailActions.updateSentMail({mail: []}))
+    history.replace('/')
+
   }
 
   return (
