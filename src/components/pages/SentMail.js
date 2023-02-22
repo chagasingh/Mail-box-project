@@ -31,7 +31,7 @@ const SentMail = () => {
       },
       transformData
     );
-  }, [sendRequest, dispatch, email]);
+  }, [sendRequest, changed]);
 
   return (
     <Fragment>

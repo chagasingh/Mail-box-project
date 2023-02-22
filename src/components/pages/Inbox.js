@@ -38,7 +38,7 @@ const Inbox = () => {
       },
       transformData
     );
-  }, [sendRequest]);
+  }, [sendRequest,changed]);
 
   return (
     <Fragment>
