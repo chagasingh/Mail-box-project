@@ -1,8 +1,10 @@
 import { Modal, Button } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { mailActions } from "../../store/mail-slice";
+import useHttp from "../../hooks/use-http";
 
 const ViewMail = (props) => {
+  const { sendRequest } = useHttp();
   const viewMail = useSelector((state) => state.mail.viewMail);
   const dispatch = useDispatch();
   const viewMailHandler = () => {
@@ -13,17 +15,15 @@ const ViewMail = (props) => {
     let url;
     if (props.type === "recevied") {
       url = `https://react-movie-c353a-default-rtdb.firebaseio.com/rec${props.email}/${props.mail.id}.json`;
-    } else{
-      url = `https://react-movie-c353a-default-rtdb.firebaseio.com/sent${props.email}/${props.mail.id}.json`;
-    }
-
-    await fetch(url, { method: "DELETE" });
-    if(props.type === "recevied") {
       dispatch(mailActions.deleteReceivedMail(props.mail.id));
-    }else{
+    } else {
+      url = `https://react-movie-c353a-default-rtdb.firebaseio.com/sent${props.email}/${props.mail.id}.json`;
       dispatch(mailActions.deleteSentMail(props.mail.id));
     }
-    
+    sendRequest({
+      url: url,
+      method: "DELETE",
+    });
     dispatch(mailActions.mailHandler());
   };
   return (

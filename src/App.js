@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch ,Redirect} from "react-router-dom";
 import AuthForm from "./components/Authentication/AuthForm"
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -44,10 +44,12 @@ function App() {
       </Route>
 
       <Route path="/inbox">
-        <Inbox />
+        {isAuthenticated && <Inbox />}
+        {!isAuthenticated && <Redirect to="/" />}
       </Route>
       <Route path="/sent">
-        <SentMail/>
+        {isAuthenticated && <SentMail />}
+        {!isAuthenticated && <Redirect to="/" />}
       </Route>
     </Switch>
   );

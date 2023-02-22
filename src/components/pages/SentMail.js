@@ -1,40 +1,37 @@
-
-import { Fragment } from "react";
-import { useEffect } from "react";
+import { useEffect,Fragment } from "react";
 import { Table, Button, Card } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { mailActions } from "../../store/mail-slice";
-import Header from "../Layout/Header";
 import ViewMail from "./ViewMail";
+import useHttp from "../../hooks/use-http";
+import Header from "../Layout/Header";
 
 const SentMail = () => {
+  const { sendRequest } = useHttp();
   const dispatch = useDispatch();
-  const sentMail = useSelector((state) => state.mail.sentMail);
+  const { sentMail, changed } = useSelector((state) => state.mail);
   const senderMail = useSelector((state) => state.auth.email);
   const email = senderMail.replace("@", "").replace(".", "");
+  console.log(email);
   const viewMailHandler = () => {
     dispatch(mailActions.mailHandler());
   };
 
-  const fetchSentMail = async () => {
-    const response = await fetch(
-      `https://react-movie-c353a-default-rtdb.firebaseio.com/sent${email}.json`
-    );
-    if (!response.ok) {
-      throw new Error("Could not fetch sent mail");
-    }
-    const data = await response.json();
-    const newData = [];
-    for (let key in data) {
-      newData.push({ id: key, ...data[key] });
-    }
-    dispatch(mailActions.updateSentMail({ mail: newData }));
-    console.log(newData);
-  };
-
   useEffect(() => {
-    fetchSentMail();
-  }, []);
+    const transformData = (data) => {
+      const newData = [];
+      for (let key in data) {
+        newData.push({ id: key, ...data[key] });
+      }
+      dispatch(mailActions.updateSentMail({ mail: newData }));
+    };
+    sendRequest(
+      {
+        url: `https://react-movie-c353a-default-rtdb.firebaseio.com/sent${email}.json`,
+      },
+      transformData
+    );
+  }, [sendRequest, dispatch, email]);
 
   return (
     <Fragment>
